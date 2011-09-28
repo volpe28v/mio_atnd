@@ -57,13 +57,27 @@
 
 <h1>Mio ATND</h1>
 
-<hr>
-<% @twitter_ids.each do |tw| %>
-  <h3><%= tw %></h3>
-  管理イベント
-  <div id="<%= tw %>_holded"></div>
-  参加イベント
-  <div id="<%= tw %>_joined"></div>
-<hr>
+<table>
+  <tr><td valign="top" width="50%">
+<% @twitter_ids[0..(@twitter_ids.size/2)].each do |tw| %>
+  <div class="selector11">  
+    <div class="selector11b"><%= tw %></div>  
+  </div>  
+  <div class="selector10">管理イベント</div>
+  <div id="<%= tw %>_holded" class="events"></div>
+  <div class="selector10">参加イベント</div>
+  <div id="<%= tw %>_joined" class="events"></div>
 <% end %>
+</td><td valign="top" width="50%">
+<% @twitter_ids[(@twitter_ids.size/2 + 1)..-1].each do |tw| %>
+  <div class="selector11">  
+    <div class="selector11b"><%= tw %></div>  
+  </div>  
+  <div class="selector10">管理イベント</div>
+  <div id="<%= tw %>_holded" class="events"></div>
+  <div class="selector10">参加イベント</div>
+  <div id="<%= tw %>_joined" class="events"></div>
+<% end %>
+</td>
+</table>
 

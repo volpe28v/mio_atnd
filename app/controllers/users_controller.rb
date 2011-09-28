@@ -5,6 +5,7 @@ class UsersController < ApplicationController
       "tricknotes",
       "irasally",
       "hachiilcane",
+      "EnnuiR",
     ]
 
   end
