@@ -1,0 +1,69 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    <% @twitter_ids.each do |tw| %>
+      search_from_twitter_id_holded("<%= tw %>");
+      search_from_twitter_id_joined("<%= tw %>");
+    <% end %>
+  });
+
+  function search_from_twitter_id_holded(twitter_id){
+    var URL = "http://api.atnd.org/events/";
+    URL += "?format=jsonp";
+    URL += "&callback=" + twitter_id + "_holded_callback";
+    URL += "&owner_twitter_id=" + twitter_id;
+
+    var callback_js = document.createElement('script');
+    callback_js.charset = 'utf-8';
+    callback_js.type = "text/javascript";
+    callback_js.text = "function " + twitter_id + "_holded_callback(data){ twi_callback(\"" + twitter_id + "_holded\", data);}";
+    document.body.appendChild(callback_js);
+
+    var ADDJS = document.createElement('script');
+    ADDJS.charset = 'utf-8';
+    ADDJS.src = URL;
+    document.body.appendChild(ADDJS);
+  }
+
+  function search_from_twitter_id_joined(twitter_id){
+    var URL = "http://api.atnd.org/events/";
+    URL += "?format=jsonp";
+    URL += "&callback=" + twitter_id + "_joined_callback";
+    URL += "&twitter_id=" + twitter_id;
+
+    var callback_js = document.createElement('script');
+    callback_js.charset = 'utf-8';
+    callback_js.type = "text/javascript";
+    callback_js.text = "function " + twitter_id + "_joined_callback(data){ twi_callback(\"" + twitter_id + "_joined\", data);}";
+    document.body.appendChild(callback_js);
+
+    var ADDJS = document.createElement('script');
+    ADDJS.charset = 'utf-8';
+    ADDJS.src = URL;
+    document.body.appendChild(ADDJS);
+  }
+
+  function twi_callback(result_id, data){
+    var RES = document.getElementById(result_id);
+    for( i = 0; i < data.events.length; i++){
+      if ( new Date(data.events[i].started_at) < new Date() ) { continue; }
+      RES.innerHTML += "<a href=\"" + 
+      data.events[i].event_url + "\">" +
+      data.events[i].started_at.split("T")[0] + " : " + 
+      data.events[i].title + "</a><br>";
+    }
+  }
+
+</script>
+
+<h1>Mio ATND</h1>
+
+<hr>
+<% @twitter_ids.each do |tw| %>
+  <h3><%= tw %></h3>
+  管理イベント
+  <div id="<%= tw %>_holded"></div>
+  参加イベント
+  <div id="<%= tw %>_joined"></div>
+<hr>
+<% end %>
+
