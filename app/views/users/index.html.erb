@@ -42,13 +42,11 @@
   }
 
   function twi_callback(result_id, data){
-    var RES = document.getElementById(result_id);
+    var events_title = "";
     for( i = 0; i < data.events.length; i++){
-    var accepted =  parseInt(data.events[i].accepted);
-    var waiting  =  parseInt(data.events[i].waiting); 
-    var entry = accepted + waiting;
+      var entry = parseInt(data.events[i].accepted) + parseInt(data.events[i].waiting);
       if ( new Date(data.events[i].started_at) < new Date() ) { continue; }
-      RES.innerHTML += "<a href=\"" + 
+      events_title += "<a href=\"" + 
       data.events[i].event_url + "\">" +
       data.events[i].started_at.split("T")[0] + " : " + 
       data.events[i].title + 
@@ -57,6 +55,10 @@
       data.events[i].limit + 
       "<br>";
     }
+    $("#" + result_id + "_loading").hide();
+    $("#" + result_id).hide();
+    $("#" + result_id).append(events_title);
+    $("#" + result_id).show('normal');
   }
 
 </script>
@@ -69,14 +71,18 @@
   <div class="selector11">  
     <div class="selector11b"><%= tw %></div>  
   </div>  
-  <div id="<%= tw %>_joined" class="events"></div>
+  <div id="<%= tw %>_joined" class="events">
+    <img id="<%= tw %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  </div>
 <% end %>
 </td><td valign="top" width="50%">
 <% @twitter_ids[(@twitter_ids.size/2)..-1].each do |tw| %>
   <div class="selector11">  
     <div class="selector11b"><%= tw %></div>  
   </div>  
-  <div id="<%= tw %>_joined" class="events"></div>
+  <div id="<%= tw %>_joined" class="events">
+    <img id="<%= tw %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  </div>
 <% end %>
 </td>
 </table>
