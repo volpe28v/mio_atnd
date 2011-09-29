@@ -7,13 +7,13 @@
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 twitter_ids = [
   "snoozer05",
-  "tricknotes",
-  "irasally",
-  "hachiilcane",
-  "EnnuiR",
-  "onjiro_mohyahya",
-  "mrkn",
-  "volpe_hd28v",
+#  "tricknotes",
+#  "irasally",
+#  "hachiilcane",
+#  "EnnuiR",
+#  "onjiro_mohyahya",
+#  "mrkn",
+#  "volpe_hd28v",
 ]
 
 Follower.all.each do |f| f.destroy end
