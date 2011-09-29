@@ -1,7 +1,6 @@
 <script type="text/javascript">
   $(document).ready(function(){
     <% @twitter_ids.each do |tw| %>
-      search_from_twitter_id_holded("<%= tw %>");
       search_from_twitter_id_joined("<%= tw %>");
     <% end %>
   });
@@ -45,11 +44,18 @@
   function twi_callback(result_id, data){
     var RES = document.getElementById(result_id);
     for( i = 0; i < data.events.length; i++){
+    var accepted =  parseInt(data.events[i].accepted);
+    var waiting  =  parseInt(data.events[i].waiting); 
+    var entry = accepted + waiting;
       if ( new Date(data.events[i].started_at) < new Date() ) { continue; }
       RES.innerHTML += "<a href=\"" + 
       data.events[i].event_url + "\">" +
       data.events[i].started_at.split("T")[0] + " : " + 
-      data.events[i].title + "</a><br>";
+      data.events[i].title + 
+      "</a>" + 
+      ' ' + entry + '/' + 
+      data.events[i].limit + 
+      "<br>";
     }
   }
 
@@ -57,15 +63,12 @@
 
 <h1>Mio ATND</h1>
 
-<table>
+<table width="100%">
   <tr><td valign="top" width="50%">
 <% @twitter_ids[0...(@twitter_ids.size/2)].each do |tw| %>
   <div class="selector11">  
     <div class="selector11b"><%= tw %></div>  
   </div>  
-  <div class="selector10">管理イベント</div>
-  <div id="<%= tw %>_holded" class="events"></div>
-  <div class="selector10">参加イベント</div>
   <div id="<%= tw %>_joined" class="events"></div>
 <% end %>
 </td><td valign="top" width="50%">
@@ -73,9 +76,6 @@
   <div class="selector11">  
     <div class="selector11b"><%= tw %></div>  
   </div>  
-  <div class="selector10">管理イベント</div>
-  <div id="<%= tw %>_holded" class="events"></div>
-  <div class="selector10">参加イベント</div>
   <div id="<%= tw %>_joined" class="events"></div>
 <% end %>
 </td>
