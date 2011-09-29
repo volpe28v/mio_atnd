@@ -12,10 +12,11 @@
       "hachiilcane",
       "EnnuiR",
       "onjiro_mohyahya",
+      "mrkn",
       "volpe_hd28v",
     ]
 
 twitter_ids.each {|ti|
-  Follower.create(:twitter_id => ti)
+  Follower.create(:twitter_id => ti) if Follower.where(:twitter_id => ti).count == 0 
 }
 
