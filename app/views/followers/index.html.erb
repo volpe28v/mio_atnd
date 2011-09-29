@@ -46,7 +46,7 @@
     for( i = 0; i < data.events.length; i++){
       var entry = parseInt(data.events[i].accepted) + parseInt(data.events[i].waiting);
       var date = new Date();
-      date.setTime(Date.parse(data.events[i].started_at));
+      date.setTime(Date.parse(data.events[i].started_at.replace("T"," ")));
       var now_time = new Date();
       if ( date.getTime() >= now_time.getTime() ) {
         events_title += "<a href=\"" + 
