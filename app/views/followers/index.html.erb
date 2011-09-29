@@ -48,7 +48,7 @@
       var entry = parseInt(data.events[i].accepted) + parseInt(data.events[i].waiting);
       var date = new Date();
       date.setTime(Date.parse(data.events[i].started_at));
-      alert(date.getMonth() + " " + now_time.getMonth())
+      //alert(date.getMonth() + " " + now_time.getMonth())
       if ( date.getTime() >= now_time.getTime() ) {
         events_title += "<a href=\"" + 
         data.events[i].event_url + "\">" +
