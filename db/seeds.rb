@@ -5,16 +5,18 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
-    twitter_ids = [
-      "snoozer05",
-      "tricknotes",
-      "irasally",
-      "hachiilcane",
-      "EnnuiR",
-      "onjiro_mohyahya",
-      "mrkn",
-      "volpe_hd28v",
-    ]
+twitter_ids = [
+  "snoozer05",
+  "tricknotes",
+  "irasally",
+  "hachiilcane",
+  "EnnuiR",
+  "onjiro_mohyahya",
+  "mrkn",
+  "volpe_hd28v",
+]
+
+Follower.all.each do |f| f.destroy end
 
 twitter_ids.each {|ti|
   Follower.create(:twitter_id => ti) if Follower.where(:twitter_id => ti).count == 0 
