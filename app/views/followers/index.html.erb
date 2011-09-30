@@ -5,24 +5,6 @@
     <% end %>
   });
 
-  function search_from_twitter_id_holded(twitter_id){
-    var URL = "http://api.atnd.org/events/";
-    URL += "?format=jsonp";
-    URL += "&callback=" + twitter_id + "_holded_callback";
-    URL += "&owner_twitter_id=" + twitter_id;
-
-    var callback_js = document.createElement('script');
-    callback_js.charset = 'utf-8';
-    callback_js.type = "text/javascript";
-    callback_js.text = "function " + twitter_id + "_holded_callback(data){ twi_callback(\"" + twitter_id + "_holded\", data);}";
-    document.body.appendChild(callback_js);
-
-    var ADDJS = document.createElement('script');
-    ADDJS.charset = 'utf-8';
-    ADDJS.src = URL;
-    document.body.appendChild(ADDJS);
-  }
-
   function search_from_twitter_id_joined(twitter_id){
     var URL = "http://api.atnd.org/events/";
     URL += "?format=jsonp";
@@ -32,7 +14,7 @@
     var callback_js = document.createElement('script');
     callback_js.charset = 'utf-8';
     callback_js.type = "text/javascript";
-    callback_js.text = "function " + twitter_id + "_joined_callback(data){ twi_callback(\"" + twitter_id + "_joined\", data);}";
+    callback_js.text = "function " + twitter_id + "_joined_callback(data){ twi_callback(\"" + twitter_id + "\", data);}";
     document.body.appendChild(callback_js);
 
     var ADDJS = document.createElement('script');
@@ -41,29 +23,37 @@
     document.body.appendChild(ADDJS);
   }
 
-  function twi_callback(result_id, data){
-    var events_title = "";
+  function twi_callback(twitter_id, data){
+    var events_title = "<table>";
     var now_time = new Date();
     for( i = 0; i < data.events.length; i++){
       var entry = parseInt(data.events[i].accepted) + parseInt(data.events[i].waiting);
+      var limit = parseInt(data.events[i].limit);
+      var capacity = "";
+      if ( entry >= limit ){
+        capacity = "<font color=\"red\">" + entry + "/" + limit + "</font>";
+      }else{
+        capacity = "<font color=\"green\">" + entry + "/" + limit + "</font>";
+      }
+
       var date = new Date();
       date.setTime(Date.parse(data.events[i].started_at));
-      //alert(date.getMonth() + " " + now_time.getMonth())
+      var date_mark = data.events[i].started_at.split("T")[0];
+      var title = date_mark + " : " + data.events[i].title;
+      if (twitter_id == data.events[i].owner_twitter_id) {
+        title = "<font color=\"blue\">" + title + "</font>";
+      }
       if ( date.getTime() >= now_time.getTime() ) {
-        events_title += "<a href=\"" + 
-        data.events[i].event_url + "\">" +
-        data.events[i].started_at.split("T")[0] + " : " + 
-        data.events[i].title + 
-        "</a>" + 
-        ' ' + entry + '/' + 
-        data.events[i].limit + 
-        "<br>";
+        events_title += "<tr><td><a href=\"" + data.events[i].event_url + "\">" +
+          title + "</a></td>" + 
+          '<td align=\"right\">' + capacity  + "</td></tr>";
       }
     }
-    $("#" + result_id + "_loading").hide();
-    $("#" + result_id).hide();
-    $("#" + result_id).append(events_title);
-    $("#" + result_id).show('normal');
+    events_title += "</table>"
+
+    $("#" + twitter_id + "_joined_loading").hide();
+    $("#" + twitter_id + "_joined").append(events_title);
+    $("#" + twitter_id + "_joined").show('normal');
   }
 
 </script>
@@ -76,18 +66,16 @@
   <div class="selector11">  
     <div class="selector11b"><%= f.twitter_id %></div>  
   </div>  
-  <div id="<%= f.twitter_id %>_joined" class="events">
-    <img id="<%= f.twitter_id %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
-  </div>
+  <div id="<%= f.twitter_id %>_joined" class="events" style="display: none"></div>
+  <img id="<%= f.twitter_id %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 <% end %>
 </td><td valign="top" width="50%">
 <% @followers[(@followers.size/2)..-1].each do |f| %>
   <div class="selector11">  
     <div class="selector11b"><%= f.twitter_id %></div>  
   </div>  
-  <div id="<%= f.twitter_id %>_joined" class="events">
-    <img id="<%= f.twitter_id %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
-  </div>
+  <div id="<%= f.twitter_id %>_joined" class="events" style="display: none"></div>
+  <img id="<%= f.twitter_id %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 <% end %>
 </td>
 </table>
