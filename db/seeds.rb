@@ -13,6 +13,7 @@ twitter_ids = [
   "EnnuiR",
   "onjiro_mohyahya",
   "mrkn",
+  "shuji_w6e",
   "volpe_hd28v",
 ]
 

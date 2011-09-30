@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+  font-family: 'PT Sans Caption', Helvetica, 'ヒラギノ角ゴ Pro W3','HiraKakuProN-W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
 .selector10{  
     padding:.6em .8em;  
     font-size: 12px;
@@ -12,10 +16,12 @@
     display:block;  
     padding:.2em .3em; 
     font-size: 16px;
+
 }  
 .selector11b{  
     border-left:#ccc solid 6px;  
     padding: 0em .3em 0em .8em;  
+    color: #666;
 }  
 
 .events{
@@ -23,7 +29,10 @@
     font-size: 14px;
 }
 
-a {
-    color: black;
-    text-decoration: none;
-}
+
+.holded a { color: blue; }
+.holded a:hover { color: #EA1F00; }
+
+a { color:#262626; text-decoration:none; }
+
+a:hover { color:#EA1F00; }

@@ -10,6 +10,7 @@
     URL += "?format=jsonp";
     URL += "&callback=" + twitter_id + "_joined_callback";
     URL += "&twitter_id=" + twitter_id;
+    URL += "&count=100";
 
     var callback_js = document.createElement('script');
     callback_js.charset = 'utf-8';
@@ -40,12 +41,12 @@
       date.setTime(Date.parse(data.events[i].started_at));
       var date_mark = data.events[i].started_at.split("T")[0];
       var title = date_mark + " : " + data.events[i].title;
+      var admin_class = "joined";
       if (twitter_id == data.events[i].owner_twitter_id) {
-        title = "<font color=\"blue\">" + title + "</font>";
+        admin_class = "holded";
       }
       if ( date.getTime() >= now_time.getTime() ) {
-        events_title += "<tr><td><a href=\"" + data.events[i].event_url + "\">" +
-          title + "</a></td>" + 
+        events_title += "<tr><td><span class=\"" + admin_class + "\"><a href=\"" + data.events[i].event_url + "\">" + title + "</a></span></td>" + 
           '<td align=\"right\">' + capacity  + "</td></tr>";
       }
     }
