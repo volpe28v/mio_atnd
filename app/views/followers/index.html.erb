@@ -14,8 +14,8 @@
 
     var callback_js = document.createElement('script');
     callback_js.charset = 'utf-8';
-    callback_js.type = "text/javascript";
-    callback_js.text = "function " + twitter_id + "_joined_callback(data){ twi_callback(\"" + twitter_id + "\", data);}";
+    callback_js.type = 'text/javascript';
+    callback_js.text = 'function ' + twitter_id + '_joined_callback(data){ twi_callback("' + twitter_id + '", data);}';
     document.body.appendChild(callback_js);
 
     var ADDJS = document.createElement('script');
@@ -26,35 +26,51 @@
 
   function twi_callback(twitter_id, data){
     var events_title = "<table>";
-    var now_time = new Date();
     for( i = 0; i < data.events.length; i++){
-      var entry = parseInt(data.events[i].accepted) + parseInt(data.events[i].waiting);
-      var limit = parseInt(data.events[i].limit);
-      var capacity = "";
-      if ( entry >= limit ){
-        capacity = "<font color=\"red\">" + entry + "/" + limit + "</font>";
-      }else{
-        capacity = "<font color=\"green\">" + entry + "/" + limit + "</font>";
-      }
-
-      var date = new Date();
-      date.setTime(Date.parse(data.events[i].started_at));
-      var date_mark = data.events[i].started_at.split("T")[0];
-      var title = date_mark + " : " + data.events[i].title;
-      var admin_class = "joined";
-      if (twitter_id == data.events[i].owner_twitter_id) {
-        admin_class = "holded";
-      }
-      if ( date.getTime() >= now_time.getTime() ) {
-        events_title += "<tr><td><span class=\"" + admin_class + "\"><a href=\"" + data.events[i].event_url + "\">" + title + "</a></span></td>" + 
-          '<td align=\"right\">' + capacity  + "</td></tr>";
+      if ( is_from_now(data.events[i].started_at) ) {
+        events_title += '<tr><td>' + get_title_link( twitter_id, data.events[i]) + '</td>' + 
+                        '<td align="right">' + get_capacity(data.events[i])  + '</td></tr>';
       }
     }
-    events_title += "</table>"
+    events_title += "</table>";
 
     $("#" + twitter_id + "_joined_loading").hide();
     $("#" + twitter_id + "_joined").append(events_title);
     $("#" + twitter_id + "_joined").show('normal');
+  }
+
+  function get_title_link( twitter_id, event_data){
+      var title = event_data.started_at.split("T")[0] + " : " + event_data.title;
+      var admin_class = "joined";
+      if (twitter_id == event_data.owner_twitter_id) {
+        admin_class = "holded";
+      }
+      return '<span class="' + admin_class + '"><a href="' + event_data.event_url + '">' + title + '</a></span>'; 
+  }
+
+  function get_capacity( event_data ){
+      var entry = parseInt(event_data.accepted) + parseInt(event_data.waiting);
+      var limit = parseInt(event_data.limit);
+      var capacity = "";
+      if ( entry >= limit ){
+        capacity = '<font color="red">' + entry + '/' + limit + '</font>';
+      }else{
+        capacity = '<font color="green">' + entry + '/' + limit + '</font>';
+      }
+      return capacity;
+  }
+
+  function is_from_now( target_time ){
+    var now = new Date();
+    var target_year  = parseInt(target_time.split("T")[0].split("-")[0]);
+    var target_month = parseInt(target_time.split("T")[0].split("-")[1]);
+    var target_day   = parseInt(target_time.split("T")[0].split("-")[2]);
+    var target_date = new Date(target_year, target_month, target_day);
+    if ( target_date >= now ){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 </script>
