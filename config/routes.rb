@@ -1,6 +1,11 @@
 MioAtnd::Application.routes.draw do
+  devise_for :users
+
   resources :users
   resources :followers
+
+  root :to => "users#index"
+  get 'users', :to => 'users#index', :as => :user_root 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

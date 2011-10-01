@@ -8,6 +8,17 @@
 </head>
 <body>
 <div id="wrapper">
+  <header>
+  <div class="login">
+    <%= current_user.twitter_id if current_user %>
+    <br><%= link_to 'ログアウト', destroy_user_session_path , :method => :delete if current_user %>
+    <%= link_to 'ログイン', new_user_session_path unless current_user %>
+  </div>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  </header>
+
 
 <%= yield %>
 
