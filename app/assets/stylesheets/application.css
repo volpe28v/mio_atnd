@@ -11,6 +11,20 @@
   margin:auto; 
 }
 
+header {
+  height: 60px;
+  padding-top: 10px;
+}
+
+.logo h1{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  float :left;
+}
+
 .login {
   float :right;
+}
+
+#main {
 }

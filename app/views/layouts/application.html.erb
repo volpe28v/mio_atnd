@@ -9,6 +9,10 @@
 <body>
 <div id="wrapper">
   <header>
+  <div class="logo">
+    <h1><%= link_to 'MioATND', root_path %></h1>
+  </div>
+ 
   <div class="login">
     <% if current_user %>
     <%= current_user.twitter_id %>
@@ -18,7 +22,6 @@
     |
     <%= link_to '新規登録', new_user_registration_path %>
   <% end %>
-  </div>
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
