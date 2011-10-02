@@ -1,8 +1,9 @@
 MioAtnd::Application.routes.draw do
   devise_for :users
 
-  resources :users
-  resources :followers
+  resources :users do
+    resources :followers
+  end
 
   root :to => "users#index"
   get 'users', :to => 'users#index', :as => :user_root 

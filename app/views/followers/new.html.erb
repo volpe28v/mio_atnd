@@ -1,0 +1,10 @@
+<div id="main">
+
+  <%= form_for @follower ,:url => user_followers_path do |f| %>
+    <%= f.label :twitter_id %>
+    <%= f.text_field :twitter_id %>
+    <%= f.submit '追加' %>
+    <input type="button" value="イベントを検索" onClick="" >
+  <% end %>
+</div>
+
