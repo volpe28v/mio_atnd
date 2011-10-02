@@ -2,9 +2,11 @@
 
   <%= form_for @follower ,:url => user_followers_path do |f| %>
     ATND Nickname
-    <%= f.text_field :nickname %>
+    <%= f.text_field :nickname, :onkeyup => "pre_regist_search_joined();" %>
     <%= f.submit '追加' %>
-    <input type="button" value="イベントを検索" onClick="" >
   <% end %>
+
+  <div id="pre_regist_search_result"></div>
 </div>
+
 

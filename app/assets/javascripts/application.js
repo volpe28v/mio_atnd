@@ -8,6 +8,35 @@
 //= require jquery_ujs
 //= require_tree .
 
+var pre_nickname = "";
+function pre_regist_search_joined(){
+  var nickname = $("#follower_nickname").val();
+  if (nickname == "" || nickname == pre_nickname){ return };
+
+  // 同一ニックネームでの重複検索を防ぐため、少し間をおいて再度入力チェックする
+  setTimeout("pre_regist_search_joined_impl()",500) 
+}
+
+function pre_regist_search_joined(){ 
+  var nickname = $("#follower_nickname").val();
+  if (nickname == "" || nickname == pre_nickname){ return };
+  pre_nickname = nickname;
+
+  $("#pre_regist_search_result").empty();
+
+  var result_div = document.createElement('div');
+  result_div.charset = 'utf-8';
+  result_div.id = nickname + "_joined";
+  $("#pre_regist_search_result").append(result_div);
+
+  var loading = document.createElement('img');
+  loading.id = nickname + "_joined_loading";
+  loading.src = '/assets/ajax-loader.gif'
+  $("#pre_regist_search_result").append(loading);
+
+  search_joined(nickname);
+}
+
 function search_joined(nickname){
   var URL = "http://api.atnd.org/events/";
   URL += "?format=jsonp";
