@@ -8,17 +8,17 @@
 //= require jquery_ujs
 //= require_tree .
 
-function search_from_twitter_id_joined(twitter_id){
+function search_joined(nickname){
   var URL = "http://api.atnd.org/events/";
   URL += "?format=jsonp";
-  URL += "&callback=" + twitter_id + "_joined_callback";
-  URL += "&twitter_id=" + twitter_id;
+  URL += "&callback=" + nickname + "_joined_callback";
+  URL += "&nickname=" + nickname;
   URL += "&count=100";
 
   var callback_js = document.createElement('script');
   callback_js.charset = 'utf-8';
   callback_js.type = 'text/javascript';
-  callback_js.text = 'function ' + twitter_id + '_joined_callback(data){ twi_callback("' + twitter_id + '", data);}';
+  callback_js.text = 'function ' + nickname + '_joined_callback(data){ twi_callback("' + nickname + '", data);}';
   document.body.appendChild(callback_js);
 
   var ADDJS = document.createElement('script');
@@ -27,25 +27,25 @@ function search_from_twitter_id_joined(twitter_id){
   document.body.appendChild(ADDJS);
 }
 
-function twi_callback(twitter_id, data){
+function twi_callback(nickname, data){
   var events_title = "<table>";
   for( i = 0; i < data.events.length; i++){
     if ( is_from_now(data.events[i].started_at) ) {
-      events_title += '<tr><td>' + get_title_link( twitter_id, data.events[i]) + '</td>' + 
+      events_title += '<tr><td>' + get_title_link( nickname, data.events[i]) + '</td>' + 
                       '<td align="right">' + get_capacity(data.events[i])  + '</td></tr>';
     }
   }
   events_title += "</table>";
 
-  $("#" + twitter_id + "_joined_loading").hide();
-  $("#" + twitter_id + "_joined").append(events_title);
-  $("#" + twitter_id + "_joined").show('normal');
+  $("#" + nickname + "_joined_loading").hide();
+  $("#" + nickname + "_joined").append(events_title);
+  $("#" + nickname + "_joined").show('normal');
 }
 
-function get_title_link( twitter_id, event_data){
+function get_title_link( nickname, event_data){
   var title = event_data.started_at.split("T")[0] + " : " + event_data.title;
   var admin_class = "joined";
-  if (twitter_id == event_data.owner_twitter_id) {
+  if (nickname == event_data.owner_nickname) {
     admin_class = "holded";
   }
   return '<span class="' + admin_class + '"><a href="' + event_data.event_url + '">' + title + '</a></span>'; 

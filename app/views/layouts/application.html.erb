@@ -15,7 +15,7 @@
  
   <div class="login">
     <% if current_user %>
-    <%= current_user.twitter_id %>
+    <%= current_user.nickname %>
     <br><%= link_to 'ログアウト', destroy_user_session_path , :method => :delete %>
   <% else %>
     <%= link_to 'ログイン', new_user_session_path %>

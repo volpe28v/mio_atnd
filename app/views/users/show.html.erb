@@ -1,8 +1,8 @@
 <script type="text/javascript">
   $(document).ready(function(){
-    search_from_twitter_id_joined("<%= @user.twitter_id %>");
+    search_joined("<%= @user.nickname %>");
     <% @followers.each do |f| %>
-      search_from_twitter_id_joined("<%= f.twitter_id %>");
+      search_joined("<%= f.nickname %>");
     <% end %>
   });
 </script>
@@ -12,25 +12,25 @@
 <table width="100%">
   <tr><td valign="top" width="50%">
   <div class="selector_you">  
-    <div class="selector_youb"><%= @user.twitter_id %></div>  
+    <div class="selector_youb"><%= @user.nickname %></div>  
   </div>  
-  <div id="<%= @user.twitter_id %>_joined" class="events" style="display: none"></div>
-  <img id="<%= @user.twitter_id %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  <div id="<%= @user.nickname %>_joined" class="events" style="display: none"></div>
+  <img id="<%= @user.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 
 <% @followers[0...(@followers.size/2)].each do |f| %>
   <div class="selector11">  
-    <div class="selector11b"><%= f.twitter_id %></div>  
+    <div class="selector11b"><%= f.nickname %></div>  
   </div>  
-  <div id="<%= f.twitter_id %>_joined" class="events" style="display: none"></div>
-  <img id="<%= f.twitter_id %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  <div id="<%= f.nickname %>_joined" class="events" style="display: none"></div>
+  <img id="<%= f.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 <% end %>
 </td><td valign="top" width="50%">
 <% @followers[(@followers.size/2)..-1].each do |f| %>
   <div class="selector11">  
-    <div class="selector11b"><%= f.twitter_id %></div>  
+    <div class="selector11b"><%= f.nickname %></div>  
   </div>  
-  <div id="<%= f.twitter_id %>_joined" class="events" style="display: none"></div>
-  <img id="<%= f.twitter_id %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  <div id="<%= f.nickname %>_joined" class="events" style="display: none"></div>
+  <img id="<%= f.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 <% end %>
 </td>
 </table>
