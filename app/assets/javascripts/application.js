@@ -94,14 +94,19 @@ function get_capacity( event_data ){
 }
 
 function is_from_now( target_time ){
-  var now = new Date();
   var all_time = target_time.split("T")[0]
   var target_year  = Number(all_time.split("-")[0]);
   var target_month = Number(all_time.split("-")[1]) - 1 ;
   var target_day   = Number(all_time.split("-")[2]);
   var target_date = new Date(target_year, target_month, target_day);
-  if ( target_date >= now ){
-    //alert(target_date + "\n" + now + "\n" + all_time + " " + target_day)
+
+  var now = new Date();
+  var now_year = now.getYear();
+  if ( now_year < 2000 ){ now_year += 1900 }
+  var now_date = new Date(now_year, now.getMonth(), now.getDate());
+
+  if ( target_date >= now_date ){
+    //alert(target_date + "\n" + now_date + "\n" + all_time + " " + target_day)
     return true;
   }else{
     return false;
