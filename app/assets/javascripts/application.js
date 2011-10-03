@@ -95,7 +95,7 @@ function get_capacity( event_data ){
 function is_from_now( target_time ){
   var now = new Date();
   var target_year  = parseInt(target_time.split("T")[0].split("-")[0]);
-  var target_month = parseInt(target_time.split("T")[0].split("-")[1]);
+  var target_month = parseInt(target_time.split("T")[0].split("-")[1]) - 1;
   var target_day   = parseInt(target_time.split("T")[0].split("-")[2]);
   var target_date = new Date(target_year, target_month, target_day);
   if ( target_date >= now ){
