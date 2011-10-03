@@ -57,7 +57,7 @@ function search_joined(nickname){
 }
 
 function twi_callback(nickname, data){
-  var events_title = "<table>";
+  var events_title = '<table width="100%">';
   for( i = 0; i < data.events.length; i++){
     if ( is_from_now(data.events[i].started_at) ) {
       events_title += '<tr><td>' + get_title_link( nickname, data.events[i]) + '</td>' + 
@@ -69,6 +69,7 @@ function twi_callback(nickname, data){
   $("#" + nickname + "_joined_loading").hide();
   $("#" + nickname + "_joined").append(events_title);
   $("#" + nickname + "_joined").show('normal');
+  //$("#" + nickname + "_joined").fadeIn('normal');
 }
 
 function get_title_link( nickname, event_data){
