@@ -19,6 +19,7 @@ body {
 
 }  
 .selector11b{  
+    display:inline;  
     border-left:#ccc solid 6px;  
     padding: 0em .3em 0em .8em;  
     color: #666;
@@ -50,3 +51,10 @@ body {
 a { color:#262626; text-decoration:none; }
 
 a:hover { color:#EA1F00; }
+
+.follower_destroy{
+    display:inline; 
+    float: right;
+}
+.follower_destroy a{ color: #ccc; }
+.follower_destroy a:hover{ color: #EA1F00; }

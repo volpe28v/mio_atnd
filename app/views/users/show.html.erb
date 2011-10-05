@@ -8,7 +8,7 @@
 </script>
 
 <div id="main">
-  <%= link_to "フォロアーを追加する", new_user_follower_path(@user) %>
+  <%= link_to "フォロアーを追加する", new_user_follower_path(@user) if @user == current_user %>
 <table width="100%">
   <tr><td valign="top" width="50%">
   <div class="selector_you">  
@@ -18,19 +18,11 @@
   <img id="<%= @user.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 
 <% @followers[0...(@followers.size/2)].each do |f| %>
-  <div class="selector11">  
-    <div class="selector11b"><%= f.nickname %></div>  
-  </div>  
-  <div id="<%= f.nickname %>_joined" class="events" style="display: none"></div>
-  <img id="<%= f.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  <%= render :partial => "event_list", :locals => {:follower => f} %>
 <% end %>
 </td><td valign="top" width="50%">
 <% @followers[(@followers.size/2)..-1].each do |f| %>
-  <div class="selector11">  
-    <div class="selector11b"><%= f.nickname %></div>  
-  </div>  
-  <div id="<%= f.nickname %>_joined" class="events" style="display: none"></div>
-  <img id="<%= f.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  <%= render :partial => "event_list", :locals => {:follower => f} %>
 <% end %>
 </td>
 </table>
