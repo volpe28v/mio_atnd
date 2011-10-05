@@ -17,7 +17,7 @@ function pre_regist_search_joined(){
   setTimeout("pre_regist_search_joined_impl()",500) 
 }
 
-function pre_regist_search_joined(){ 
+function pre_regist_search_joined_impl(){ 
   var nickname = $("#follower_nickname").val();
   if (nickname == "" || nickname == pre_nickname){ return };
   pre_nickname = nickname;
@@ -28,6 +28,7 @@ function pre_regist_search_joined(){
   result_div.charset = 'utf-8';
   result_div.id = nickname + "_joined";
   $("#pre_regist_search_result").append(result_div);
+  $("#" + nickname + "_joined").hide();
 
   var loading = document.createElement('img');
   loading.id = nickname + "_joined_loading";

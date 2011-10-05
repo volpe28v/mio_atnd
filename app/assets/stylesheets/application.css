@@ -23,8 +23,15 @@ header {
 }
 
 .login {
-  float :right;
+  float: right;
 }
 
 #main {
 }
+
+#pre_regist_search_result {
+  width: 700px;
+
+}
+
+
