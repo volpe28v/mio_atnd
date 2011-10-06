@@ -62,25 +62,32 @@ function twi_callback(nickname, data){
   if ( Number(data.results_returned) == 0 ){
     event_result = '<em><font color="red">このユーザは存在しません</font></em>';
   }else{
-    var event_count = 0;
-    event_result = '<table width="100%">';
-    for( i = 0; i < data.events.length; i++){
+    var event_array = []
+    for(var i = 0; i < data.events.length; i++){
       if ( is_from_now(data.events[i].started_at) ) {
-        event_result += '<tr><td>' + get_title_link( nickname, data.events[i]) + '</td>' + 
-                        '<td align="right">' + get_capacity(data.events[i])  + '</td></tr>';
-        event_count += 1;
+        event_array.push({
+                           date: data.events[i].started_at, 
+                           title: '<tr><td>' + get_title_link( nickname, data.events[i]) + '</td>' + 
+                                  '<td align="right">' + get_capacity(data.events[i])  + '</td></tr>'
+                         })
       }
     }
-    event_result += "</table>";
-    if (event_count == 0){
+    if (event_array.length == 0){
       event_result = "<em>参加予定のイベントはありません</em>"
+    }else{
+      event_array.sort(function(a, b) {return b["date"] < a["date"] ? 1 : -1;});
+
+      event_result = '<table width="100%">';
+      for (var i = 0; i < event_array.length; i++) {
+        event_result += event_array[i]["title"]
+      }
+      event_result += "</table>";
     }
   }
 
   $("#" + nickname + "_joined_loading").hide();
   $("#" + nickname + "_joined").append(event_result);
   $("#" + nickname + "_joined").show('normal');
-  //$("#" + nickname + "_joined").fadeIn('normal');
 }
 
 function get_title_link( nickname, event_data){
