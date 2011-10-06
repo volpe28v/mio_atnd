@@ -24,6 +24,11 @@ class FollowersController < ApplicationController
   end
 
   def show
-
   end
+
+  def destroy
+    @follower_id = params[:id]
+    Follower.find(@follower_id).destroy
+  end
+
 end

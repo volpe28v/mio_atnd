@@ -18,11 +18,11 @@
   <img id="<%= @user.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 
 <% @followers[0...(@followers.size/2)].each do |f| %>
-  <%= render :partial => "event_list", :locals => {:follower => f} %>
+  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f} %>
 <% end %>
 </td><td valign="top" width="50%">
 <% @followers[(@followers.size/2)..-1].each do |f| %>
-  <%= render :partial => "event_list", :locals => {:follower => f} %>
+  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f} %>
 <% end %>
 </td>
 </table>
