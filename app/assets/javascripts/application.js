@@ -73,7 +73,7 @@ function twi_callback(nickname, data){
       }
     }
     if (event_array.length == 0){
-      event_result = "<em>参加予定のイベントはありません</em>"
+      event_result = '<em><font color="#aaa">参加予定のイベントはありません</font></em>'
     }else{
       event_array.sort(function(a, b) {return b["date"] < a["date"] ? 1 : -1;});
 
