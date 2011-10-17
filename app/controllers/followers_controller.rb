@@ -11,7 +11,7 @@ class FollowersController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     if @user.followers.where(:nickname => params[:follower][:nickname]).count > 0 || 
-       @user.nickname == params[:follower][:nickname]
+       @user.nickname == params[:follower][:nickname] || params[:follower][:nickname].empty?
       @follower = Follower.new
       render :action => 'new'
       return

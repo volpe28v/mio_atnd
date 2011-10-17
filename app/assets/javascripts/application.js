@@ -8,7 +8,6 @@
 //= require jquery_ujs
 //= require_tree .
 
-//var pre_nickname = "";
 var pre_regist_search_joined = function(){
   var pre_nickname = "";
 
@@ -16,16 +15,10 @@ var pre_regist_search_joined = function(){
     var nickname = $("#follower_nickname").val();
     if (nickname == "" || nickname == pre_nickname){ return };
 
-    // 同一ニックネームでの重複検索を防ぐため、少し間をおいて再度入力チェックする
-    setTimeout( function(){
+    pre_nickname = nickname;
 
-      var nickname = $("#follower_nickname").val();
-      if (nickname == "" || nickname == pre_nickname){ return };
-      pre_nickname = nickname;
-
-      put_placeholder_by( nickname );
-      search_joined_by( nickname );
-    }, 100);
+    put_placeholder_by( nickname );
+    search_joined_by( nickname );
   }
 }();
 
