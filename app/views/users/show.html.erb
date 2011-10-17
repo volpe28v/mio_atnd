@@ -1,8 +1,8 @@
 <script type="text/javascript">
   $(document).ready(function(){
-    search_joined("<%= @user.nickname %>");
+    search_joined_by("<%= @user.nickname %>");
     <% @followers.each do |f| %>
-      search_joined("<%= f.nickname %>");
+      search_joined_by("<%= f.nickname %>");
     <% end %>
   });
 </script>
