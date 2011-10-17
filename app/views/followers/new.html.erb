@@ -1,3 +1,9 @@
+<script>
+  $(document).ready( function() {
+    $("#follower_nickname").focus()
+  });
+</script>
+
 <div id="main">
 
   <%= form_for @follower ,:url => user_followers_path do |f| %>
