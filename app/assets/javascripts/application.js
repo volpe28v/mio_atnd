@@ -10,44 +10,46 @@
 
 var pre_regist_search_joined = function(){
   var pre_nickname = "";
+  var placeholder_no = 0;
 
   return function(){
     var nickname = $("#follower_nickname").val();
     if (nickname == "" || nickname == pre_nickname){ return };
 
     pre_nickname = nickname;
+    placeholder_no += 1;
 
-    put_placeholder_by( nickname );
-    search_joined_by( nickname );
+    put_placeholder_by( placeholder_no );
+    search_joined_by( nickname, placeholder_no );
   }
 }();
 
-function put_placeholder_by(nickname){
+function put_placeholder_by(placeholder_no){
   $("#pre_regist_search_result").empty();
 
   var result_div = document.createElement('div');
   result_div.charset = 'utf-8';
-  result_div.id = nickname + "_joined";
+  result_div.id = placeholder_no + "_joined";
   $("#pre_regist_search_result").append(result_div);
-  $("#" + nickname + "_joined").hide();
+  $("#" + placeholder_no + "_joined").hide();
 
   var loading = document.createElement('img');
-  loading.id = nickname + "_joined_loading";
+  loading.id = placeholder_no + "_joined_loading";
   loading.src = '/assets/ajax-loader.gif'
   $("#pre_regist_search_result").append(loading);
 }
 
-function search_joined_by(nickname){
+function search_joined_by(nickname, placeholder_no){
   var URL = "http://api.atnd.org/events/";
   URL += "?format=jsonp";
-  URL += "&callback=" + nickname + "_joined_callback";
-  URL += "&nickname=" + nickname;
+  URL += "&callback=call_back_" + placeholder_no + "_joined";
+  URL += "&nickname=" + encodeURI(nickname);
   URL += "&count=100";
 
   var callback_js = document.createElement('script');
   callback_js.charset = 'utf-8';
   callback_js.type = 'text/javascript';
-  callback_js.text = 'function ' + nickname + '_joined_callback(data){ twi_callback("' + nickname + '", data);}';
+  callback_js.text = 'function call_back_' + placeholder_no + '_joined(data){ twi_callback("' + nickname + '", ' + placeholder_no + ', data);}';
   document.body.appendChild(callback_js);
 
   var ADDJS = document.createElement('script');
@@ -56,7 +58,7 @@ function search_joined_by(nickname){
   document.body.appendChild(ADDJS);
 }
 
-function twi_callback(nickname, data){
+function twi_callback(nickname, placeholder_no, data){
   var event_result = ""
   if ( Number(data.results_returned) == 0 ){
     event_result = '<em><font color="red">このユーザは存在しません</font></em>';
@@ -84,9 +86,9 @@ function twi_callback(nickname, data){
     }
   }
 
-  $("#" + nickname + "_joined_loading").hide();
-  $("#" + nickname + "_joined").append(event_result);
-  $("#" + nickname + "_joined").show('normal');
+  $("#" + placeholder_no + "_joined_loading").hide();
+  $("#" + placeholder_no + "_joined").append(event_result);
+  $("#" + placeholder_no + "_joined").show('normal');
 }
 
 function get_title_link( nickname, event_data){

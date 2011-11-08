@@ -1,8 +1,8 @@
 <script type="text/javascript">
   $(document).ready(function(){
-    search_joined_by("<%= @user.nickname %>");
-    <% @followers.each do |f| %>
-      search_joined_by("<%= f.nickname %>");
+    search_joined_by("<%= @user.nickname %>", 1);
+    <% @followers.each_with_index do |f,i| %>
+      search_joined_by("<%= f.nickname %>", <%= i + 2 %>);
     <% end %>
   });
 </script>
@@ -10,19 +10,22 @@
 <div id="main">
   <%= link_to "フォロアーを追加する", new_user_follower_path(@user) if @user == current_user %>
 <table width="100%">
+  <% placeholder_no = 1 %>
   <tr><td valign="top" width="50%">
   <div class="selector_you">  
     <div class="selector_youb"><%= @user.nickname %></div>  
   </div>  
-  <div id="<%= @user.nickname %>_joined" class="events" style="display: none"></div>
-  <img id="<%= @user.nickname %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  <div id="<%= placeholder_no %>_joined" class="events" style="display: none"></div>
+  <img id="<%= placeholder_no %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 
 <% @followers[0...(@followers.size/2)].each do |f| %>
-  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f} %>
+  <% placeholder_no += 1 %>
+  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f, :placeholder_no => placeholder_no } %>
 <% end %>
 </td><td valign="top" width="50%">
 <% @followers[(@followers.size/2)..-1].each do |f| %>
-  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f} %>
+  <% placeholder_no += 1 %>
+  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f, :placeholder_no => placeholder_no } %>
 <% end %>
 </td>
 </table>
