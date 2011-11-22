@@ -65,7 +65,7 @@ function twi_callback(nickname, placeholder_no, data){
   }else{
     var event_array = []
     for(var i = 0; i < data.events.length; i++){
-      if ( is_from_now(data.events[i].started_at) ) {
+      if ( is_from_now(data.events[i].started_at) && is_valid_event( data.events[i]) ) {
         event_array.push({
                            date: data.events[i].started_at, 
                            title: '<tr><td>' + get_title_link( nickname, data.events[i]) + '</td>' + 
@@ -99,6 +99,15 @@ function get_title_link( nickname, event_data){
   }
   return '<span class="' + admin_class + '"><a href="' + event_data.event_url + '">' + title + '</a></span>'; 
 }
+
+function is_valid_event( event_data ){
+  if ( event_data.title == "ATNDデモイベント（タイトル）" ){
+    return false;
+  }else{
+    return true;
+  }
+}
+
 
 function get_capacity( event_data ){
   var entry = Number(event_data.accepted) + Number(event_data.waiting);
