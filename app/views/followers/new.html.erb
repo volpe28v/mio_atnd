@@ -4,15 +4,16 @@
   });
 </script>
 
+<div id="wrapper">
 <div id="main">
 
-  <%= form_for @follower ,:url => user_followers_path do |f| %>
+  <%= form_for @follower ,:url => user_followers_path,:html => { :class => "form-horizontal"} do |f| %>
     ATND Nickname
     <%= f.text_field :nickname, :onkeyup => "pre_regist_search_joined();" %>
-    <%= f.submit '追加' %>
+    <%= f.submit '追加',:class => "btn"  %>
+    <%= link_to '戻る', user_root_path, :class => "btn" %>
   <% end %>
 
   <div id="pre_regist_search_result"></div>
 </div>
-
-
+</div>

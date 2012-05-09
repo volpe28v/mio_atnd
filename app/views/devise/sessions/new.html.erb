@@ -1,17 +1,63 @@
-<h2>Sign in</h2>
+<div class="container">
+  <div class="row">
+    <div class="span8">
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+<div class="hero-unit">
+  <h1>MioATND</h1>
+  <p>
+    <h3>概要</h3>
+    <ul>
+      <li>「MioATND」ではお気に入りのATNDユーザを登録して、参加イベントを一括チェックできます。</li>
+      <li>友人やイベント主催者をフォローしておけば、うっかり行きたい勉強会を逃してしまうことも少なくなります。</li>
+    </ul>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+    <h3>ソースコード</h3>
+    <ul>
+      <li><a href=https://github.com/volpe28v/mio_atnd>https://github.com/volpe28v/mio_atnd</a></li>
+    </ul>
+  </p>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+  ユーザ数: <%= User.all.count %>
+</div>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
+    </div>
+    <div class="span4">
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count,"error") %></h2>
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal"}) do |f| %>
+      <%= devise_error_messages! %>
+      <fieldset>
+        <legend>ログイン</legend>
+        <div class="control-group">
+          <%= f.label :email, :class => "control-label" %>
+          <div class="controls">
+            <%= f.email_field :email %>
+          </div>
+        </div>
 
-<%= render :partial => "devise/shared/links" %>
+        <div class="control-group">
+          <%= f.label :password, :class => "control-label" %>
+          <div class="controls">
+            <%= f.password_field :password %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="controls">
+            <%= f.submit "ログイン", :class => "btn btn-primary" %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+    </div>
+  </div>
+</div>
+

@@ -7,8 +7,8 @@
   });
 </script>
 
+<div id="wrapper">
 <div id="main">
-  <%= link_to "フォローする", new_user_follower_path(@user) if @user == current_user %>
 <table width="100%">
   <% placeholder_no = 1 %>
   <tr><td valign="top" width="50%">
@@ -29,4 +29,5 @@
 <% end %>
 </td>
 </table>
+</div>
 </div>

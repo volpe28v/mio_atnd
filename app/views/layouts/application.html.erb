@@ -7,29 +7,32 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="wrapper">
   <header>
-  <div class="logo">
-    <h1><%= link_to 'MioATND', root_path %></h1>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="brand" href="/">MioATND</a>
+        <div class="nav-collapse">
+          <ul class="nav pull-left">
+          <% if current_user %>
+            <li><%= link_to "フォローする", new_user_follower_path(@user) %></li>
+          <% end %>
+          </ul>
+          <ul class="nav pull-right">
+          <% if current_user %>
+            <li><%= link_to 'ログアウト', destroy_user_session_path , :method => :delete %></li>
+          <% else %>
+            <li><%= link_to 'ログイン', new_user_session_path %></li>
+            <li><%= link_to '新規登録', new_user_registration_path %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
- 
-  <div class="login">
-    <% if current_user %>
-    <%= current_user.nickname %>
-    <br><%= link_to 'ログアウト', destroy_user_session_path , :method => :delete %>
-  <% else %>
-    <%= link_to 'ログイン', new_user_session_path %>
-    |
-    <%= link_to '新規登録', new_user_registration_path %>
-  <% end %>
-
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
   </header>
 
 
 <%= yield %>
 
-</div>
 </body>
 </html>
