@@ -1,29 +1,28 @@
 <div class="container">
   <div class="row">
     <div class="span8">
+      <div class="hero-unit">
+        <h1>MioATND</h1>
+        <p>
+          <h3>概要</h3>
+          <ul>
+            <li>「MioATND」ではお気に入りの<%= link_to 'ATND', 'http://atnd.org/' %>ユーザを登録して、参加イベントを一括チェックできます。</li>
+            <li>お好きな友人やイベント主催者をフォローしておけば、うっかり行きたい勉強会を逃してしまうことも少なくなるはず。</li>
+          </ul>
 
-<div class="hero-unit">
-  <h1>MioATND</h1>
-  <p>
-    <h3>概要</h3>
-    <ul>
-      <li>「MioATND」ではお気に入りの<%= link_to 'ATND', 'http://atnd.org/' %>ユーザを登録して、参加イベントを一括チェックできます。</li>
-      <li>お好きな友人やイベント主催者をフォローしておけば、うっかり行きたい勉強会を逃してしまうことも少なくなるはず。</li>
-    </ul>
+          <h3>ソースコード</h3>
+          <ul>
+            <li><a href=https://github.com/volpe28v/mio_atnd>https://github.com/volpe28v/mio_atnd</a></li>
+          </ul>
+        </p>
 
-    <h3>ソースコード</h3>
-    <ul>
-      <li><a href=https://github.com/volpe28v/mio_atnd>https://github.com/volpe28v/mio_atnd</a></li>
-    </ul>
-  </p>
-
-  ユーザ数: <%= User.all.count %>
-</div>
-
+        ユーザ数: <%= User.all.count %>
+      </div>
     </div>
+
     <div class="span4">
     <% if @user.errors.any? %>
-      <div id="error_explanation">
+      <div class="alert alert-error">
         <h2><%= pluralize(@user.errors.count,"error") %></h2>
         <ul>
         <% @user.errors.full_messages.each do |msg| %>
@@ -33,7 +32,6 @@
       </div>
     <% end %>
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal"}) do |f| %>
-      <%= devise_error_messages! %>
       <fieldset>
         <legend>ログイン</legend>
         <div class="control-group">
