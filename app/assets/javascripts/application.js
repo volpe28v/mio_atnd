@@ -43,7 +43,7 @@ function search_joined_by(nickname, placeholder_no){
   var URL = "http://api.atnd.org/events/";
   URL += "?format=jsonp";
   URL += "&callback=call_back_" + placeholder_no + "_joined";
-  URL += "&nickname=" + encodeURI(nickname);
+  URL += "&nickname=" + encodeURIComponent(nickname);
   URL += "&count=100";
 
   var callback_js = document.createElement('script');
