@@ -1,15 +1,9 @@
 <div id="follower_<%= follower.id %>">
-  <div class="selector11">
-    <div class="selector11b">
-      <%= follower.nickname %>
-    </div>
-    <% if current_user == user %>
-    <div class="follower_destroy">
-      <%= link_to 'x', user_follower_path(current_user,follower), :method => :delete,:remote => true, :confirm => "本当に削除しますか？" %>
-    </div>
-    <% end %>
+  <div class="alert alert-success">
+    <%= link_to 'x', user_follower_path(current_user,follower), :method => :delete,:remote => true, :confirm => "本当に削除しますか？", :class => "close" %>
+    <%= follower.nickname %>
+    <div id="<%= placeholder_no %>_joined" class="events" style="display: none"></div>
+    <div><img id="<%= placeholder_no %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> "></div>
   </div>
-  <div id="<%= placeholder_no %>_joined" class="events" style="display: none"></div>
-  <img id="<%= placeholder_no %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
 </div>
 

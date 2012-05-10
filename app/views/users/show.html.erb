@@ -8,26 +8,25 @@
 </script>
 
 <div id="wrapper">
-<div id="main">
-<table width="100%">
+  <div class="row-fluid">
   <% placeholder_no = 1 %>
-  <tr><td valign="top" width="50%">
-  <div class="selector_you">  
-    <div class="selector_youb"><%= @user.nickname %></div>  
-  </div>  
-  <div id="<%= placeholder_no %>_joined" class="events" style="display: none"></div>
-  <img id="<%= placeholder_no %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> ">
+  <div class="span6">
+    <div class="alert alert-info"><%= @user.nickname %>
+      <div id="<%= placeholder_no %>_joined" class="events" style="display: none"></div>
+      <div><img id="<%= placeholder_no %>_joined_loading" src="<%= image_path 'ajax-loader.gif' %> "></div>
+    </div>
 
-<% @followers[0...(@followers.size/2)].each do |f| %>
-  <% placeholder_no += 1 %>
-  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f, :placeholder_no => placeholder_no } %>
-<% end %>
-</td><td valign="top" width="50%">
-<% @followers[(@followers.size/2)..-1].each do |f| %>
-  <% placeholder_no += 1 %>
-  <%= render :partial => "event_list", :locals => {:user => @user, :follower => f, :placeholder_no => placeholder_no } %>
-<% end %>
-</td>
-</table>
-</div>
+    <% @followers[0...(@followers.size/2)].each do |f| %>
+      <% placeholder_no += 1 %>
+      <%= render :partial => "event_list", :locals => {:user => @user, :follower => f, :placeholder_no => placeholder_no } %>
+    <% end %>
+  </div>
+
+  <div class="span6">
+    <% @followers[(@followers.size/2)..-1].each do |f| %>
+      <% placeholder_no += 1 %>
+      <%= render :partial => "event_list", :locals => {:user => @user, :follower => f, :placeholder_no => placeholder_no } %>
+    <% end %>
+  </div>
+  </div>
 </div>
